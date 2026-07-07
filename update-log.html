@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>更新日志</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--primary-bg, #f5f5f5);
+      color: var(--text-color, #333);
+      line-height: 1.6;
+    }
+
+    .header {
+      position: sticky;
+      top: 0;
+      background: var(--primary-bg, #fff);
+      border-bottom: 1px solid var(--border-color, #eee);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .back-btn {
+      font-size: 28px;
+      cursor: pointer;
+      color: var(--text-color, #333);
+      margin-right: 12px;
+      line-height: 1;
+    }
+
+    .header-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-color, #333);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    .notice {
+      background: var(--primary-bg, #fff);
+      border: 1px solid var(--border-color, #e0e0e0);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      border-left: 4px solid var(--accent-color, #007AFF);
+    }
+
+    .notice h2 {
+      font-size: 16px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: var(--text-color, #333);
+    }
+
+    .notice p {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--text-secondary, #666);
+    }
+
+    .version-card {
+      background: var(--primary-bg, #fff);
+      border: 1px solid var(--border-color, #e0e0e0);
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 20px;
+      transition: border-color 0.2s;
+    }
+
+    .version-card:hover {
+      border-color: var(--accent-color, #007AFF);
+    }
+
+    .version-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-color, #e0e0e0);
+    }
+
+    .version-number {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-color, #333);
+      margin-right: 12px;
+    }
+
+    .version-date {
+      font-size: 13px;
+      color: var(--text-secondary, #999);
+    }
+
+    .section {
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary, #666);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .item-list {
+      list-style: none;
+      padding-left: 12px;
+    }
+
+    .item-list li {
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      font-size: 14px;
+      color: var(--text-color, #555);
+    }
+
+    .item-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--text-secondary, #999);
+      font-size: 18px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 16px 12px;
+      }
+
+      .version-card {
+        padding: 16px;
+      }
+
+      .version-number {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="back-btn" onclick="history.back()">‹</span>
+    <span class="header-title">更新日志</span>
+  </div>
+
+  <div class="container">
+    <div class="notice">
+      <h2>关于更新日志</h2>
+      <p>之前有人建议我把330的更新日志做个日志放上去，问题是我的更新日志文件因为换电脑不慎丢失了，所以更新日志从本次（明天）更新后开始记录。</p>
+    </div>
+
+    <!-- 4.9 版本 -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v4.9</span>
+        <span class="version-date">最新版本</span>
+      </div>
+
+      <div class="section">
+        <div class="section-title new">新增</div>
+        <ul class="item-list">
+          <li>新增可以影响对话质量的多个参数，可调节</li>
+          <li>新增情侣空间角色可以主动发出邀约</li>
+          <li>新增情侣空间可以解除</li>
+          <li>新增角色可以主动解除情侣空间</li>
+          <li>新增长期记忆可以转换为向量，包括其他记忆转换的问题</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title optimize">优化</div>
+        <ul class="item-list">
+          <li>优化向量记忆，新增embedding模型教程</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title fix">修复</div>
+        <ul class="item-list">
+          <li>修复NAI生图保存问题</li>
+          <li>修复云备份上传大数据问题</li>
+          <li>修复聊天提示词编写后出现各种BUG</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 4.8 版本 -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v4.8</span>
+      </div>
+
+      <div class="section">
+        <div class="section-title fix">修复</div>
+        <ul class="item-list">
+          <li>修复GitHub云备份大数据上传失败的BUG</li>
+          <li>修复情侣空间API手写不会自动更新</li>
+          <li>修复情侣空间各种BUG</li>
+          <li>修复点击图片无法看大图的BUG</li>
+          <li>修复CPHONE日记不能记录的BUG</li>
+          <li>修复绿江评论样式丢失</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title optimize">优化</div>
+        <ul class="item-list">
+          <li>优化新增向量记忆</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title new">新增</div>
+        <ul class="item-list">
+          <li>新增对话条数范围</li>
+          <li>新增悬浮球，可以快速切换API预设·角色专属API·聊天设置配置模板</li>
+          <li>新增情侣空间修改天数时起始日也跟随修改</li>
+          <li>新增可以自定义聊天提示词</li>
+        </ul>
+      </div>
+
+      <p style="margin-top: 16px; font-size: 13px; color: var(--text-secondary, #999); font-style: italic;">
+        应该没什么大BUG了吧。
+      </p>
+    </div>
+
+    <!-- 4.7 版本 -->
+    <div class="version-card">
+      <div class="version-header">
+        <span class="version-number">v4.7</span>
+      </div>
+
+      <div class="section">
+        <div class="section-title fix">修复</div>
+        <ul class="item-list">
+          <li>修复邮箱BUG</li>
+          <li>修复记忆表格和向量记忆总结没有过滤隐藏消息的BUG</li>
+          <li>修复GitHub云备份按钮的BUG</li>
+          <li>修复情侣空间导入导出问题</li>
+          <li>修复一起听的BUG</li>
+          <li>修复情侣空间CHAR写日记的BUG</li>
+          <li>修复情侣空间编辑的BUG</li>
+          <li>修复识图API配置刷新后消失的BUG</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title new">新增</div>
+        <ul class="item-list">
+          <li>新增情侣空间专属API</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 支持主题切换
+    if (window.opener && window.opener.state && window.opener.state.globalSettings) {
+      const theme = window.opener.state.globalSettings.theme || 'light';
+      if (theme === 'dark') {
+        document.documentElement.style.setProperty('--primary-bg', '#1a1a1a');
+        document.documentElement.style.setProperty('--text-color', '#e0e0e0');
+        document.documentElement.style.setProperty('--text-secondary', '#999');
+        document.documentElement.style.setProperty('--border-color', '#333');
+        document.documentElement.style.setProperty('--accent-color', '#0a84ff');
+      }
+    }
+  </script>
+</body>
+</html>
