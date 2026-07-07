@@ -1,0 +1,976 @@
+/* ============================================================
+   floating-ball.css - 悬浮球样式
+   ============================================================ */
+
+/* 悬浮球容器 */
+#floating-ball {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--accent-color, #007aff);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0.9;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+#floating-ball:active {
+  transform: scale(0.95);
+}
+
+#floating-ball.dragging {
+  opacity: 0.6;
+  transition: none;
+}
+
+#floating-ball.hidden {
+  display: none;
+}
+
+/* 悬浮球图标 */
+#floating-ball svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+/* 三击唤起涟漪效果 */
+.tap-ripple {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-color, #007aff);
+  pointer-events: none;
+  z-index: 9998;
+  animation: ripple-animation 0.4s ease-out;
+}
+
+@keyframes ripple-animation {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* 悬浮球菜单 */
+#floating-ball-menu {
+  position: fixed;
+  background: var(--secondary-bg, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  z-index: 10000;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+
+#floating-ball-menu.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* 菜单项 */
+.fb-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.fb-menu-item:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.fb-menu-item:last-child {
+  border-bottom: none;
+  border-radius: 0 0 12px 12px;
+}
+
+.fb-menu-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.fb-menu-item.danger:hover {
+  background: rgba(255, 59, 48, 0.1);
+  color: #ff3b30;
+}
+
+.fb-menu-item svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  color: var(--accent-color, #007aff);
+  flex-shrink: 0;
+}
+
+.fb-menu-item.danger svg {
+  color: #ff3b30;
+}
+
+.fb-menu-item span {
+  font-size: 15px;
+  color: var(--text-color, #000000);
+}
+
+.fb-menu-item.danger span {
+  color: #ff3b30;
+}
+
+/* 分隔线 */
+.fb-menu-divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  margin: 4px 0;
+}
+
+/* 子菜单 */
+#floating-ball-submenu {
+  position: fixed;
+  background: var(--secondary-bg, #ffffff);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  min-width: 220px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  z-index: 10001;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+}
+
+#floating-ball-submenu.show {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* 子菜单头部 */
+.fb-submenu-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  background: var(--secondary-bg, #ffffff);
+  z-index: 1;
+}
+
+.fb-submenu-back {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--accent-color, #007aff);
+  font-size: 15px;
+}
+
+.fb-submenu-back svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+/* 子菜单项 */
+.fb-submenu-item {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.fb-submenu-item:last-child {
+  border-bottom: none;
+}
+
+.fb-submenu-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.fb-submenu-item.active {
+  background: rgba(0, 122, 255, 0.1);
+}
+
+.fb-submenu-item .radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-color, #007aff);
+  margin-right: 12px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fb-submenu-item.active .radio::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-color, #007aff);
+}
+
+.fb-submenu-item span {
+  font-size: 15px;
+  color: var(--text-color, #000000);
+  flex: 1;
+}
+
+/* 模板项样式 */
+.fb-template-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+}
+
+.fb-template-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.fb-template-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-color, #000000);
+  margin-bottom: 4px;
+}
+
+.fb-template-desc {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fb-template-arrow {
+  width: 16px;
+  height: 16px;
+  color: #ccc;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* 新增按钮 */
+.fb-submenu-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  color: var(--accent-color, #007aff);
+  font-size: 15px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  bottom: 0;
+  background: var(--secondary-bg, #ffffff);
+}
+
+.fb-submenu-add:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.fb-submenu-add svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* 深色模式适配 */
+.dark-mode #floating-ball-menu,
+.dark-mode #floating-ball-submenu {
+  background: var(--secondary-bg, #1c1c1e);
+}
+
+.dark-mode .fb-menu-item,
+.dark-mode .fb-submenu-item {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .fb-menu-item:hover,
+.dark-mode .fb-submenu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .fb-menu-divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .fb-submenu-header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background: var(--secondary-bg, #1c1c1e);
+}
+
+.dark-mode .fb-submenu-add {
+  border-top-color: rgba(255, 255, 255, 0.1);
+  background: var(--secondary-bg, #1c1c1e);
+}
+
+/* 角色API配置面板 */
+.role-api-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s;
+  padding: 20px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.role-api-content {
+  background: var(--secondary-bg, #ffffff);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s;
+  overflow: hidden;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.role-api-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--secondary-bg, #ffffff);
+  flex-shrink: 0;
+}
+
+.role-api-back {
+  font-size: 36px;
+  color: var(--accent-color, #007aff);
+  cursor: pointer;
+  width: 50px;
+  line-height: 1;
+  user-select: none;
+}
+
+.role-api-back:active {
+  opacity: 0.6;
+}
+
+.role-api-title {
+  flex: 1;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-color, #000000);
+}
+
+.role-api-save {
+  color: var(--accent-color, #007aff);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  width: 50px;
+  text-align: right;
+  user-select: none;
+}
+
+.role-api-save:active {
+  opacity: 0.6;
+}
+
+.role-api-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.role-api-section {
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.role-api-section:last-child {
+  border-bottom: none;
+}
+
+/* 开关项 */
+.role-api-switch-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.role-api-switch-left {
+  flex: 1;
+}
+
+.role-api-switch-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color, #000000);
+  margin-bottom: 6px;
+}
+
+.role-api-switch-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.5;
+}
+
+/* 表单字段 */
+.role-api-field {
+  margin-bottom: 20px;
+}
+
+.role-api-field:last-child {
+  margin-bottom: 0;
+}
+
+.role-api-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color, #000000);
+  margin-bottom: 8px;
+}
+
+.role-api-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  font-size: 15px;
+  background: var(--secondary-bg, #ffffff);
+  color: var(--text-color, #000000);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.role-api-input:focus {
+  outline: none;
+  border-color: var(--accent-color, #007aff);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.role-api-input::placeholder {
+  color: #999;
+}
+
+/* 模型选择行 */
+.role-api-model-row {
+  display: flex;
+  gap: 10px;
+}
+
+.role-api-select {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  font-size: 15px;
+  background: var(--secondary-bg, #ffffff);
+  color: var(--text-color, #000000);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.role-api-select:focus {
+  outline: none;
+  border-color: var(--accent-color, #007aff);
+}
+
+.role-api-fetch-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--accent-color, #007aff);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.role-api-fetch-btn:hover {
+  opacity: 0.9;
+}
+
+.role-api-fetch-btn:active {
+  transform: scale(0.98);
+}
+
+.role-api-fetch-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.role-api-fetch-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 深色模式 */
+.dark-mode .role-api-content {
+  background: var(--secondary-bg, #1c1c1e);
+}
+
+.dark-mode .role-api-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: var(--secondary-bg, #1c1c1e);
+}
+
+.dark-mode .role-api-section {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .role-api-input,
+.dark-mode .role-api-select {
+  background: #2c2c2e;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.dark-mode .role-api-input:focus,
+.dark-mode .role-api-select:focus {
+  border-color: var(--accent-color, #007aff);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+.dark-mode .role-api-input::placeholder {
+  color: #666;
+}
+
+/* ============================================================
+   悬浮球样式设置面板
+   ============================================================ */
+
+/* 样式面板容器 */
+.fb-style-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s;
+  padding: 20px;
+}
+
+.fb-style-content {
+  background: var(--secondary-bg, #ffffff);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s;
+  overflow: hidden;
+}
+
+/* 样式面板头部 */
+.fb-style-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--secondary-bg, #ffffff);
+  flex-shrink: 0;
+}
+
+.fb-style-back {
+  font-size: 36px;
+  color: var(--accent-color, #007aff);
+  cursor: pointer;
+  width: 50px;
+  line-height: 1;
+  user-select: none;
+}
+
+.fb-style-back:active {
+  opacity: 0.6;
+}
+
+.fb-style-title {
+  flex: 1;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-color, #000000);
+}
+
+.fb-style-save {
+  color: var(--accent-color, #007aff);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  width: 50px;
+  text-align: right;
+  user-select: none;
+}
+
+.fb-style-save:active {
+  opacity: 0.6;
+}
+
+/* 样式面板主体 */
+.fb-style-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.fb-style-section {
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.fb-style-section:last-child {
+  border-bottom: none;
+}
+
+.fb-style-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-color, #000000);
+  margin-bottom: 12px;
+}
+
+.fb-style-desc {
+  font-size: 13px;
+  color: #888;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+/* 样式类型标签页 */
+.fb-style-tabs {
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 4px;
+  border-radius: 10px;
+}
+
+.fb-style-tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-color, #000000);
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.fb-style-tab:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.fb-style-tab.active {
+  background: var(--secondary-bg, #ffffff);
+  color: var(--accent-color, #007aff);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 面板内容 */
+.fb-style-panel-content {
+  display: none;
+}
+
+.fb-style-panel-content.active {
+  display: block;
+}
+
+/* 表单字段 */
+.fb-style-field {
+  margin-bottom: 12px;
+}
+
+.fb-style-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  font-size: 15px;
+  background: var(--secondary-bg, #ffffff);
+  color: var(--text-color, #000000);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.fb-style-input:focus {
+  outline: none;
+  border-color: var(--accent-color, #007aff);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.fb-style-input::placeholder {
+  color: #999;
+}
+
+.fb-style-textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  background: var(--secondary-bg, #ffffff);
+  color: var(--text-color, #000000);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.fb-style-textarea-small {
+  min-height: 120px;
+}
+
+.fb-style-textarea:focus {
+  outline: none;
+  border-color: var(--accent-color, #007aff);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.fb-style-textarea::placeholder {
+  color: #999;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* 上传按钮组 */
+.fb-style-upload-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.fb-style-upload-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--accent-color, #007aff);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  user-select: none;
+}
+
+.fb-style-upload-btn:hover {
+  opacity: 0.9;
+}
+
+.fb-style-upload-btn:active {
+  transform: scale(0.98);
+}
+
+.fb-style-upload-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.fb-style-preview-btn {
+  padding: 12px 20px;
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--accent-color, #007aff);
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.fb-style-preview-btn:hover {
+  background: rgba(0, 122, 255, 0.15);
+}
+
+.fb-style-preview-btn:active {
+  transform: scale(0.98);
+}
+
+.fb-style-reset-btn {
+  padding: 12px 20px;
+  background: rgba(255, 59, 48, 0.1);
+  color: #ff3b30;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.fb-style-reset-btn:hover {
+  background: rgba(255, 59, 48, 0.15);
+}
+
+.fb-style-reset-btn:active {
+  transform: scale(0.98);
+}
+
+/* 按钮组 */
+.fb-style-button-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.fb-style-action-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--accent-color, #007aff);
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.fb-style-action-btn:hover {
+  background: rgba(0, 122, 255, 0.15);
+}
+
+.fb-style-action-btn:active {
+  transform: scale(0.98);
+}
+
+.fb-style-action-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 自定义图片样式 */
+#floating-ball .fb-custom-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* 当使用图片时，移除悬浮球的默认背景 */
+#floating-ball:has(.fb-custom-image) {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* 深色模式 */
+.dark-mode .fb-style-content {
+  background: var(--secondary-bg, #1c1c1e);
+}
+
+.dark-mode .fb-style-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  background: var(--secondary-bg, #1c1c1e);
+}
+
+.dark-mode .fb-style-section {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .fb-style-tabs {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .fb-style-tab.active {
+  background: #2c2c2e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .fb-style-input,
+.dark-mode .fb-style-textarea {
+  background: #2c2c2e;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.dark-mode .fb-style-input:focus,
+.dark-mode .fb-style-textarea:focus {
+  border-color: var(--accent-color, #007aff);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+}
+
+.dark-mode .fb-style-input::placeholder,
+.dark-mode .fb-style-textarea::placeholder {
+  color: #666;
+}
